@@ -39,10 +39,12 @@ def get_asym_ids(aa_seqs):
     return asym_ids
 
 
-def calc_ppi_sites(prot_data, chn_ids, dist_thres=10):
+def calc_ppi_sites(prot_data, chn_ids, dist_thres=7.5):
     """Calculate PPI sites"""
 
     assert len(chn_ids) == 2
+    
+    print(f"Distance threshold for epitope detection {dist_thres}")
 
     chn_data_pri = prot_data[chn_ids[0]]
     chn_data_sec = prot_data[chn_ids[1]]

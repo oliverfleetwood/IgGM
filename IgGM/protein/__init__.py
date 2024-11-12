@@ -8,7 +8,7 @@ from .prot_struct import ProtStruct
 from .prot_converter import ProtConverter
 from .pdb_fixer import PdbFixer
 
-def cal_ppi(pdb_path, complex_ids):
+def cal_ppi(pdb_path, complex_ids, dist_thres):
     """Calculate PPI sites"""
     prot_data = {}
     ligand_id = "HL"
@@ -27,5 +27,5 @@ def cal_ppi(pdb_path, complex_ids):
 
     aa_seq, atom_cord, atom_cmsk, _, _ = PdbParser.load(pdb_path, chain_id="A")
     prot_data["A"] = {"seq": aa_seq, "cord": atom_cord, "cmsk": atom_cmsk}
-    ppi_data = calc_ppi_sites(prot_data, ["A", ligand_id])
+    ppi_data = calc_ppi_sites(prot_data, ["A", ligand_id], dist_thres=dist_thres)
     return ppi_data['A']

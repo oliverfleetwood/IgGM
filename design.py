@@ -52,6 +52,13 @@ def parse_args():
         default=1,
         help='number of samples for each input',
     )
+    parser.add_argument(
+        '--dist_thres',
+        type=float,
+        default=7.5,
+        help='Distance cutoff for epitope detection',
+    )
+    
     args = parser.parse_args()
 
     return args
@@ -72,7 +79,8 @@ def predict(args):
     aa_seq, atom_cord, atom_cmsk, _, _ = PdbParser.load(pdb_path, chain_id="A")
     if args.epitope is None:
         try:
-            epitope = cal_ppi(pdb_path, ids)
+            epitope = cal_ppi(pdb_path, ids, dist_thres=args.dist_thres)
+            print(f"Epitope extracted and set to {[idx for idx,e in enumerate(epitope) if e > 0]}")
         except:
             epitope = args.epitope
     else:
